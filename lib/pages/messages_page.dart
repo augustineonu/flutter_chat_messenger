@@ -31,7 +31,7 @@ class _MessagesPageState extends State<MessagesPage> {
             Border(bottom: BorderSide(color: Colors.grey.shade300, width: 4)),
         backgroundColor: Colors.white,
         centerTitle: true,
-        elevation: 4.0,
+        elevation: 5.0,
         leading: const Icon(
           Icons.menu_rounded,
           size: 30.0,
@@ -139,6 +139,7 @@ class _MessagesPageState extends State<MessagesPage> {
           ),
           Divider(color: Colors.grey.shade300, height: 5.0,endIndent: 16, 
           indent: 16),
+          Text("Testing"),
         ],
       );
     } else {

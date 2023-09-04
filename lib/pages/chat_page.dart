@@ -68,7 +68,7 @@ class _ChatPageState extends State<ChatPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
         }
-
+        // listview
         return ListView(
           children: snapshot.data!.docs
               .map((document) => _buildMessageItem(document))
@@ -95,7 +95,7 @@ class _ChatPageState extends State<ChatPage> {
             : CrossAxisAlignment.start,
         children: [
           Text(data['senderEmail']),
-          const SizedBox(height: 5,),
+          const SizedBox(height: 6,),
           ChatBubble(message: data['message']),
         ],
       ),
