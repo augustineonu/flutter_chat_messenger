@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List _pages = [
+  final List _pages = const [
     Center(
       child: CallsPage(),
     ),
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         onTap: (index) => _changeTab(index),
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Calls"),
           BottomNavigationBarItem(icon: Icon(Icons.message_rounded), label: "Messages"),
           BottomNavigationBarItem(
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // searchbar
-  Widget _searchBar() {
+  Widget  _searchBar() {
     return Container(
       margin: EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(

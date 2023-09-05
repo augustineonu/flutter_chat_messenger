@@ -37,8 +37,10 @@ class AuthService extends ChangeNotifier {
         email: email,
         password: password,
       );
+      User user = userCredential.user!;
+      // user.updateDisplayName(displayName)
 
-      // after creating the uer, create a new document fo rthe user in the user collection
+      // after creating the user, create a new document for the user in the user collection
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email
