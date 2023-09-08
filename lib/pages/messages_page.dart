@@ -14,19 +14,19 @@ class MessagesPage extends StatefulWidget {
 }
 
 class _MessagesPageState extends State<MessagesPage> {
-    // instance of auth
+  // instance of auth
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-    void signOut() {
+  void signOut() {
     // get auth service
     final authService = Provider.of<AuthService>(context, listen: false);
     authService.signOut();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-        appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         shape:
             Border(bottom: BorderSide(color: Colors.grey.shade300, width: 4)),
         backgroundColor: Colors.white,
@@ -62,7 +62,6 @@ class _MessagesPageState extends State<MessagesPage> {
           ),
         ),
       ),
-     
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {
@@ -70,9 +69,9 @@ class _MessagesPageState extends State<MessagesPage> {
             return const Text("error");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading...');
+            return const Center(child: Text('Loading...'));
           }
-     
+
           return ListView(
             shrinkWrap: true,
             physics: const ScrollPhysics(),
@@ -81,11 +80,11 @@ class _MessagesPageState extends State<MessagesPage> {
                 .toList(),
           );
         },
-         ),
-     );
+      ),
+    );
   }
 
-   // build individual user list items
+  // build individual user list items
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
@@ -120,11 +119,15 @@ class _MessagesPageState extends State<MessagesPage> {
                 ),
               ),
             ),
-            title: Text(data['email'], 
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+            title: Text(
+              data['fullName'],
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
             // subtitle: Text("Hello"),
-            trailing: const Text("2:43 PM", style: TextStyle(color: 
-            Color.fromARGB(255, 144, 142, 142)),),
+            trailing: const Text(
+              "2:43 PM",
+              style: TextStyle(color: Color.fromARGB(255, 144, 142, 142)),
+            ),
             onTap: () {
               // pass the clicked user's UID to the chat page
               Navigator.push(
@@ -137,9 +140,11 @@ class _MessagesPageState extends State<MessagesPage> {
                   ));
             },
           ),
-          Divider(color: Colors.grey.shade300, height: 5.0,endIndent: 16, 
-          indent: 16),
-          Text("Testing"),
+          Divider(
+              color: Colors.grey.shade300,
+              height: 5.0,
+              endIndent: 16,
+              indent: 16),
         ],
       );
     } else {
@@ -148,7 +153,7 @@ class _MessagesPageState extends State<MessagesPage> {
     }
   }
 
- // searchbar
+  // searchbar
   Widget _searchBar() {
     return Container(
       margin: EdgeInsets.only(bottom: 15.0),
@@ -168,20 +173,25 @@ class _MessagesPageState extends State<MessagesPage> {
           hintStyle: TextStyle(color: Colors.grey),
 
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(20.0),),),
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey,
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                20.0,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(20.0,),),),
+            ),
+          ),
         ),
       ),
     );
   }
-
 }
-
-

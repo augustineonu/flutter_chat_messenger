@@ -29,14 +29,19 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
+    // Print the values before sending to the API
+    print("Email: ${emailController.text}");
+    print("Password: ${passwordController.text}");
+    print("Full Name: ${fullNameController.text}");
+
     // get auth service
     final authService = Provider.of<AuthService>(context, listen: false);
     try {
-      await authService.signUpWithEmailandPassword(
-          emailController.text, passwordController.text);
+      await authService.signUpWithEmailandPassword(emailController.text,
+          passwordController.text, fullNameController.text);
     } catch (e) {
-       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           content: Text(e.toString()),
         ),
       );
@@ -78,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     MyTextField(
                       obscureText: false,
                       hintText: 'Full name',
-                      controller: emailController,
+                      controller: fullNameController,
                     ),
                     const SizedBox(
                       height: 15,

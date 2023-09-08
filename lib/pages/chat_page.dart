@@ -36,7 +36,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-     shape:
+        shape:
             Border(bottom: BorderSide(color: Colors.grey.shade300, width: 4)),
         backgroundColor: Colors.white,
         title: Text(widget.receiverUserEmail),
@@ -50,7 +50,9 @@ class _ChatPageState extends State<ChatPage> {
 
           // user input
           _buildMessageInput(),
-          SizedBox(height: 25,),
+          const SizedBox(
+            height: 25,
+          ),
         ],
       ),
     );
@@ -86,17 +88,27 @@ class _ChatPageState extends State<ChatPage> {
     var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
         ? Alignment.centerRight
         : Alignment.centerLeft;
+        var currentUser = (data['senderId'] == _firebaseAuth.currentUser!.uid);
     return Container(
       alignment: alignment,
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
-        crossAxisAlignment: (data['senderId'] == _firebaseAuth.currentUser!.uid)
+        crossAxisAlignment: currentUser
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
           Text(data['senderEmail']),
-          const SizedBox(height: 6,),
-          ChatBubble(message: data['message']),
+          const SizedBox(
+            height: 6,
+          ),
+          ChatBubble(
+            message: data['message'],
+            bubbleColor: currentUser
+                ? Colors.blue
+                : Colors.grey.shade200, 
+                messageColor: currentUser ? Colors.white : Colors.black,
+                
+          ),
         ],
       ),
     );
@@ -112,13 +124,13 @@ class _ChatPageState extends State<ChatPage> {
             child: SizedBox(
               height: 53.0,
               child: MyTextField(
-                  controller: _messageController,
-                  hintText: 'Enter message',
-                  obscureText: false,
-                  ),
+                controller: _messageController,
+                hintText: 'Enter message',
+                obscureText: false,
+              ),
             ),
           ),
-    
+
           // send button
           IconButton(
             onPressed: sendMessage,
