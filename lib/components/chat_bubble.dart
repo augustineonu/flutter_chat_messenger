@@ -14,7 +14,7 @@ class ChatBubble extends StatelessWidget {
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(8),
     color: bubbleColor,
-    boxShadow: <BoxShadow>[
+    boxShadow: const <BoxShadow> [
       BoxShadow(
         color: Colors.black12,
         blurRadius: 20.0,

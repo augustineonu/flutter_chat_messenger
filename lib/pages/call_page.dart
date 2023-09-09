@@ -11,8 +11,15 @@ class CallsPage extends StatelessWidget {
          shape:
             Border(bottom: BorderSide(color: Colors.grey.shade300, width: 4)),
         backgroundColor: Colors.white,
-        title: Text("Calls",
+        title: const Text("Calls",
         style: TextStyle(fontWeight: FontWeight.w700),)),
+        body: Column(children: [
+          Text("testing out call page"),
+          Text("testing out call page"),
+          Text("testing out call page"),
+          Text("testing out call page"),
+          Text("testing out call page"),
+        ],),
     );
   }
 }
