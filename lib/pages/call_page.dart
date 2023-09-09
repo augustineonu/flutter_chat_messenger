@@ -13,13 +13,14 @@ class CallsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         title: const Text("Calls",
         style: TextStyle(fontWeight: FontWeight.w700),)),
-        body: Column(children: [
-          Text("testing out call page"),
-          Text("testing out call page"),
-          Text("testing out call page"),
-          Text("testing out call page"),
-          Text("testing out call page"),
-        ],),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Text("testing out call page"),
+            Text("testing out call page"),
+            Text("testing out call page"),
+            Text("testing out call page"),
+          ],),
+        ),
     );
   }
 }
