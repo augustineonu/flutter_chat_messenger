@@ -72,6 +72,7 @@ class _ChatPageState extends State<ChatPage> {
         }
         // listview
         return ListView(
+          scrollDirection: Axis.vertical,
           children: snapshot.data!.docs
               .map((document) => _buildMessageItem(document))
               .toList(),

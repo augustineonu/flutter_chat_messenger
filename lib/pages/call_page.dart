@@ -18,7 +18,7 @@ class CallsPage extends StatelessWidget {
             Text("testing out call page"),
             Text("testing out call page"),
             Text("testing out call page"),
-            Text("testing out call page"),
+          
           ],),
         ),
     );
