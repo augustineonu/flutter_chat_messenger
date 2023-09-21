@@ -118,12 +118,20 @@ class _ChatPageState extends State<ChatPage> {
   // build message input
   Widget _buildMessageInput() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0.0),
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+            IconButton(
+                onPressed: sendMessage,
+                icon: const Icon(
+                  Icons.add,
+                  size: 30,
+                ),
+              ),
           Expanded(
             child: SizedBox(
-              height: 53.0,
+              height: 50.0,
               child: MyTextField(
                 controller: _messageController,
                 hintText: 'Enter message',
@@ -133,12 +141,24 @@ class _ChatPageState extends State<ChatPage> {
           ),
 
           // send button
-          IconButton(
-            onPressed: sendMessage,
-            icon: const Icon(
-              Icons.arrow_circle_up_rounded,
-              size: 40,
-            ),
+          Row(
+            children: [
+              IconButton(
+                onPressed: sendMessage,
+                icon: const Icon(
+                  Icons.arrow_circle_up_rounded,
+                  // size: 35,
+                ),
+              ),
+              IconButton(
+                onPressed: sendMessage,
+                icon: const Icon(
+                  Icons.mic_rounded,
+                  // size: 30,
+                ),
+              ),
+              
+            ],
           ),
         ],
       ),
