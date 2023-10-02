@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 50.0);
 
- int _selectedTab = 1;
- _changeTab(int index) {
+  int _selectedTab = 1;
+  _changeTab(int index) {
     setState(() {
       _selectedTab = index;
     });
@@ -44,14 +44,11 @@ class _HomePageState extends State<HomePage> {
     Center(
       child: ProfilePage(),
     ),
-   
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-     
       body: _pages[_selectedTab],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
@@ -60,7 +57,8 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.phone), label: "Calls"),
-          BottomNavigationBarItem(icon: Icon(Icons.message_rounded), label: "Messages"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.message_rounded), label: "Messages"),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline_rounded), label: "Profile"),
         ],
@@ -69,7 +67,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // searchbar
-  Widget  _searchBar() {
+  Widget _searchBar() {
     return Container(
       margin: EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(
@@ -88,15 +86,23 @@ class _HomePageState extends State<HomePage> {
           hintStyle: TextStyle(color: Colors.grey),
 
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(20.0),),),
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey,
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                20.0,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(20.0,),),),
+            ),
+          ),
         ),
       ),
     );
@@ -142,8 +148,7 @@ class _HomePageState extends State<HomePage> {
               isOnlyText: false,
               text: const Text(
                 'C',
-                style: TextStyle(color: Colors.white, 
-                fontSize: 50),
+                style: TextStyle(color: Colors.white, fontSize: 50),
               ),
               avatarType: AvatarType.CIRCLE,
               backgroundColor: Colors.red,
@@ -161,25 +166,34 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            title: Text(data['email'], 
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+            title: Text(
+              data['email'],
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
             subtitle: Text("Hello"),
-            trailing: const Text("2:43 PM", style: TextStyle(color: 
-            Color.fromARGB(255, 144, 142, 142)),),
+            trailing: const Text(
+              "2:43 PM",
+              style: TextStyle(color: Color.fromARGB(255, 144, 142, 142)),
+            ),
             onTap: () {
               // pass the clicked user's UID to the chat page
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChatPage(
+                    builder: (context) => 
+                    ChatPage(
                       receiverUserEmail: data['email'],
                       receiverUserID: data['uid'],
+                      fullName: '',
                     ),
                   ));
             },
           ),
-          Divider(color: Colors.grey.shade300, height: 5.0,endIndent: 16, 
-          indent: 16),
+          Divider(
+              color: Colors.grey.shade300,
+              height: 5.0,
+              endIndent: 16,
+              indent: 16),
         ],
       );
     } else {
@@ -187,6 +201,4 @@ class _HomePageState extends State<HomePage> {
       return Container();
     }
   }
-
-
 }

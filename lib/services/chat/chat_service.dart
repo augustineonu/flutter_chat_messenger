@@ -43,6 +43,7 @@ class ChatService extends ChangeNotifier {
     ids.sort();
     String chatRoomId = ids.join("_");
 
+    print("objects: ");
     return _firestore
         .collection('chat_rooms')
         .doc(chatRoomId)

@@ -136,6 +136,7 @@ class _MessagesPageState extends State<MessagesPage> {
                     builder: (context) => ChatPage(
                       receiverUserEmail: data['email'],
                       receiverUserID: data['uid'],
+                      fullName: data['fullName'] ?? '',
                     ),
                   ));
             },

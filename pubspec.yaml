@@ -40,6 +40,7 @@ dependencies:
   provider:
   cloud_firestore: ^4.9.0
   avatar_view: ^1.0.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

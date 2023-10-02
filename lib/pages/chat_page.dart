@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_messenger/components/chat_bubble.dart';
 import 'package:flutter_chat_messenger/components/textfield.dart';
 import 'package:flutter_chat_messenger/services/chat/chat_service.dart';
+import 'package:intl/intl.dart';
+
 
 class ChatPage extends StatefulWidget {
   final String receiverUserEmail;
   final String receiverUserID;
+  final String fullName;
   const ChatPage(
       {super.key,
       required this.receiverUserEmail,
-      required this.receiverUserID});
+      required this.receiverUserID,
+      required this.fullName});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -33,13 +37,20 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // _chatService.getMessages(widget.receiverUserID, otherUserId)
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         shape:
             Border(bottom: BorderSide(color: Colors.grey.shade300, width: 4)),
         backgroundColor: Colors.white,
-        title: Text(widget.receiverUserEmail),
+        title: Text(widget.fullName),
       ),
       body: Column(
         children: [
@@ -70,6 +81,9 @@ class _ChatPageState extends State<ChatPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
         }
+            // Access and print the data from the documents
+      final messages = snapshot.data!.docs.map((document) => document.data());
+      print("message response: $messages");
         // listview
         return ListView(
           scrollDirection: Axis.vertical,
@@ -84,6 +98,10 @@ class _ChatPageState extends State<ChatPage> {
   // build messsage item
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+    final Timestamp timestamp = data['timestamp'] as Timestamp;
+    final DateTime dateTime = timestamp.toDate();
+    final timeString = DateFormat('K:mm').format(dateTime);
 
     // align the messages to the irght if the sener is the current user, otherwise the left
     var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
@@ -104,6 +122,8 @@ class _ChatPageState extends State<ChatPage> {
           ),
           ChatBubble(
             message: data['message'],
+            timeStamp: timeString,
+            width: 100,
             bubbleColor: currentUser
                 ? Colors.blue
                 : Colors.grey.shade200, 
