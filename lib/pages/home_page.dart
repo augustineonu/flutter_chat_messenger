@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
               borderColor: Colors.green.shade200,
               isOnlyText: false,
               text: const Text(
-                'C',
+                'Test',
                 style: TextStyle(color: Colors.white, fontSize: 50),
               ),
               avatarType: AvatarType.CIRCLE,
