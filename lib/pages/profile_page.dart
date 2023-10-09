@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_messenger/components/image_avatar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -13,6 +14,11 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text("Profile",
         style: TextStyle(fontWeight: FontWeight.w700),),),
+        body: Column(children: [
+          // imageAvatar(imgUrl: "",),
+          Text('John Doe'),
+          Text('John Doe')
+        ]),
     );
   }
 }

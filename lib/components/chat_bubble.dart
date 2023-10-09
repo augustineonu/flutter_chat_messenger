@@ -15,8 +15,8 @@ class ChatBubble extends StatelessWidget {
     required this.timeStamp,
     this.width,
   })  : constraints = BoxConstraints(
-          minWidth: width ?? 120, // Use the specified width or default to 120
-          maxWidth: 250, // Adjust the maximum width as needed
+          minWidth: 120, // Use the specified width or default to 120
+          maxWidth: width ?? 250, // Adjust the maximum width as needed
         ),
         super(key: key);
 

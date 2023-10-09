@@ -121,9 +121,10 @@ class _ChatPageState extends State<ChatPage> {
             height: 6,
           ),
           ChatBubble(
+            
             message: data['message'],
             timeStamp: timeString,
-            width: 100,
+            width:  180,
             bubbleColor: currentUser
                 ? Colors.blue
                 : Colors.grey.shade200, 

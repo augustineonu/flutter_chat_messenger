@@ -41,6 +41,17 @@ dependencies:
   cloud_firestore: ^4.9.0
   avatar_view: ^1.0.1
   intl: ^0.18.1
+  cached_network_image: ^3.2.3
+  firebase_storage: ^11.2.8
+  fluttertoast: ^8.2.2
+  image_picker: ^1.0.4
+  shared_preferences: ^2.2.1
+  photo_view: ^0.14.0
+  country_code_picker: ^3.0.0
+  url_launcher: ^6.1.14
+  equatable: ^2.0.5
+  google_sign_in: ^6.1.5
+  google_sign_in_web:
 
 dev_dependencies:
   flutter_test:
