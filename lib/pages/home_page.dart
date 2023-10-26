@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:avatar_view/avatar_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_chat_messenger/pages/chat_page.dart';
 import 'package:flutter_chat_messenger/pages/messages_page.dart';
 import 'package:flutter_chat_messenger/pages/profile_page.dart';
 import 'package:flutter_chat_messenger/services/auth/auth_service.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,10 +49,91 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+  Future<bool> onBackPress() {
+    openDialog();
+    return Future.value(false);
+  }
+
+  // when the user clicks back button to exit the application
+  Future<void> openDialog() async {
+    switch (await showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return SimpleDialog(
+            backgroundColor: Color(0xff4c3938),
+            title: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Exit Application',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Icon(
+                  Icons.exit_to_app,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Are you sure?',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context, 0);
+                    },
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context, 1);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+                      child: const Text(
+                        'Yes',
+                        style: TextStyle(color: Color(0xff1d2951)),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          );
+        })) {
+      case 0:
+        break;
+      case 1:
+        exit(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedTab],
+      body: WillPopScope(child: _pages[_selectedTab], onWillPop: onBackPress),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         onTap: (index) => _changeTab(index),
@@ -180,8 +264,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => 
-                    ChatPage(
+                    builder: (context) => ChatPage(
                       receiverUserEmail: data['email'],
                       receiverUserID: data['uid'],
                       fullName: '',

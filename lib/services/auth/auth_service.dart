@@ -1,25 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_messenger/constants/firestore_constants.dart';
 import 'package:flutter_chat_messenger/model/user_chat_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService extends ChangeNotifier {
+  final SharedPreferences prefs;
   // instance of auth
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuth;
 
   // instance of firestore
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore;
+
+  AuthService(
+      {required this.prefs, required this.firebaseAuth, required this.firestore,});
+
+  String? getFirebaseUserId() {
+    return prefs.getString(FireStoreConstants.id);
+  }
 
   // sign user in
   Future<UserCredential> signInWithEmailandPassword(
       String email, String password) async {
     try {
       // sign in
-      UserCredential userCredential = await _firebaseAuth
+      UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
       // add a new document for the user in the users collection if it doesn't already exist
-      _firestore.collection('users').doc(userCredential.user!.uid).set(
+      firestore.collection('users').doc(userCredential.user!.uid).set(
           {'uid': userCredential.user!.uid, 'email': email},
           SetOptions(merge: true));
       return userCredential;
@@ -33,13 +43,13 @@ class AuthService extends ChangeNotifier {
       String email, String password, String fullName) async {
     try {
       UserCredential userCredential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
+          await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       User? firebaseUser = userCredential.user!;
-      final QuerySnapshot result = await _firestore
+      final QuerySnapshot result = await firestore
           .collection('users')
           .where(userCredential.user!.uid, isEqualTo: firebaseUser.uid)
           .get();
@@ -48,7 +58,7 @@ class AuthService extends ChangeNotifier {
       // if the document returns empty list
       if (document.isEmpty) {
         // after creating the user, create a new document for the user in the user collection
-        _firestore.collection('users').doc(userCredential.user!.uid).set({
+        firestore.collection('users').doc(userCredential.user!.uid).set({
           'uid': userCredential.user!.uid,
           'email': email,
           'displayName': fullName,
